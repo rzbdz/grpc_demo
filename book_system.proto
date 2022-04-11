@@ -1,0 +1,23 @@
+// Distributed computing hw3
+// Books management system
+// ------------------------------
+// bool Add(Book);
+// Book QueryById(int32);
+// BookList(use grpc stream) QueryByName(string);
+// bool DeleteById(int32);
+syntax = "proto3";
+
+import "google/protobuf/wrappers.proto";
+package disc3;
+
+service BookSystem{
+  rpc Add(Book) returns (google.protobuf.BoolValue) {}
+  rpc QueryById(google.protobuf.Int32Value) returns (Book){}
+  rpc QueryByName(google.protobuf.StringValue) returns (stream Book){}
+  rpc DeleteById(google.protobuf.Int32Value) returns (google.protobuf.BoolValue){}
+}
+
+message Book{
+  int32 id = 1;
+  string name = 2;
+}

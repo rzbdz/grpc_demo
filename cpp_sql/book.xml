@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mapper namespace="disc3">
+    <BookEntity>
+        <field name="name" type="string"/>
+        <field name="id" type="int32"/>
+    </BookEntity>
+    <BookIdParam>
+        <field name="id" type="int32"/>
+    </BookIdParam>
+    <select id="GetBookById" param_type="BookIdParam" result_type="BookEntity">
+        select `NAME`, `ID`
+        from `BOOKS`
+        where `ID` = #{id}
+    </select>
+    <Empty>
+    </Empty>
+    <select id="GetAllBooks" param_type="Empty" result_type="BookEntity">
+        select `NAME`, `ID`
+        from `BOOKS`
+    </select>
+    <BookNameParam>
+        <field name="name" type="string"/>
+    </BookNameParam>
+    <select id="GetBookByName" param_type="BookNameParam" result_type="BookEntity">
+        select `NAME`, `ID`
+        from `BOOKS`
+        where `NAME` like concat('%',#{name},'%')
+    </select>
+    <insert id="AddBook" param_type="BookEntity">
+        insert into `BOOKS`
+        values
+        (#{name}, #{id})
+    </insert>
+    <delete id="DeleteBook" param_type="BookIdParam">
+        delete from `BOOKS`
+        where `ID`=#{id}
+    </delete>
+</mapper>
