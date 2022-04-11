@@ -89,18 +89,15 @@ message Book{
 
 ## 服务端设计说明
 
-grpc 提供了 Service 纯虚方法类，继承 override 实现所有方法。由于本机数据库用不了，暂时没有做持久化操作。设计为一个内存数据库微服务， 可以后续支持异步与持久化层交互。
 
 ```cpp
 class BookSystemImpl{
  private:
-  bool syncToDatabase() {
-    // TODO: add logics to deal with database...
-    return true;
-  }
-  unordered_map<int32_t, unique_ptr<Book>> all_books_{};
+  unordered_map<int32_t, unique_ptr<Book>> all_books_{}; //简单的内存缓存
+  //....(一系列同步 PO 自数据库的 helper 方法)
  public:
   //....(继承 Service 虚方法)
+
 }
 ```
 
